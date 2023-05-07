@@ -5,6 +5,12 @@ services:
     expose: [5000]
     volumes:
       - ./node:/usr/src/app
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_DATABASE=database
   nginx:
     image: nginx:latest
     volumes:
@@ -13,3 +19,13 @@ services:
       - "3000:80"
     depends_on:
       - node
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=mda
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=testedb
+      - MYSQL_ROOT_PASSWORD=testedb
+    ports:
+      - "3306:3306"
